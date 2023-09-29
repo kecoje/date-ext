@@ -1,6 +1,6 @@
 {
   "name": "@kecoje/date-ext",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Extended Date class",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
