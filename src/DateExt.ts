@@ -542,6 +542,16 @@ class DateExt extends Date {
     return this.valueOf() >= d.valueOf();
   }
 
+  min(d: Date): DateExt {
+    if (this.isBefore(d)) return new DateExt(this)
+    else return new DateExt(d)
+  }
+
+  max(d: Date): DateExt {
+    if (this.isAfter(d)) return new DateExt(this)
+    else return new DateExt(d)
+  }
+
   // Binary operators
 
   static min(d1: Date, d2: Date): Date {
