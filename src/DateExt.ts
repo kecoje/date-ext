@@ -543,23 +543,21 @@ class DateExt extends Date {
   }
 
   min(d: Date): DateExt {
-    if (this.isBefore(d)) return new DateExt(this)
-    else return new DateExt(d)
+    return new DateExt(Math.min(this.valueOf(), d.valueOf()));
   }
 
   max(d: Date): DateExt {
-    if (this.isAfter(d)) return new DateExt(this)
-    else return new DateExt(d)
+    return new DateExt(Math.max(this.valueOf(), d.valueOf()));
   }
 
   // Binary operators
 
-  static min(d1: Date, d2: Date): Date {
-    return new Date(Math.min(d1.valueOf(), d2.valueOf()));
+  static min(d1: Date, d2: Date): DateExt {
+    return new DateExt(Math.min(d1.valueOf(), d2.valueOf()));
   }
 
-  static max(d1: Date, d2: Date): Date {
-    return new Date(Math.max(d1.valueOf(), d2.valueOf()));
+  static max(d1: Date, d2: Date): DateExt {
+    return new DateExt(Math.max(d1.valueOf(), d2.valueOf()));
   }
 
   clone(): DateExt {
