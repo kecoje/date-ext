@@ -78,10 +78,10 @@ class DateExt extends Date {
 
   /** 28 - 31 */
   getUTCDaysInCurrentMonth(): number {
-    return new DateExt(this.getUTCFullYear(), this.getUTCMonth() + 1, 0).getUTCDate() + 1;
+    return new DateExt(this.getUTCFullYear(), this.getUTCMonth() + 1, 0).getUTCDate();
   }
   getTzDaysInCurrentMonth(): number {
-    return new DateExt(this.getTzFullYear(), this.getTzMonth() + 1, 0).getTzDate() + 1;
+    return new DateExt(this.getTzFullYear(), this.getTzMonth() + 1, 0).getTzDate();
   }
 
   // Time setters
