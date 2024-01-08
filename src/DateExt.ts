@@ -3,9 +3,11 @@ import { monthMap } from "./dateLabels";
 import { timezones } from "./timezones";
 
 export const config: {
-  defaultTimezoneAbbr: string | 'UTC'
+  defaultTimezoneAbbr: string | 'UTC',
+  dstExperimantalEnabled: boolean
 } = {
-  defaultTimezoneAbbr: 'UTC'
+  defaultTimezoneAbbr: 'UTC',
+  dstExperimantalEnabled: false,
 }
 
 class DateExt extends Date {
@@ -15,7 +17,7 @@ class DateExt extends Date {
     if (timezoneAbbr === 'default') timezoneAbbr = config.defaultTimezoneAbbr
     if (timezoneAbbr !== 'UTC') {
       const timezone = timezones.find((tz) => tz.abbr === timezoneAbbr) ?? timezones.find((tz) => tz.abbr === 'UTC');
-      d = d.subtractHours(offsetFromTz(timezone) ?? 0)
+      d = d.subtractHours(offsetFromTz(timezone, d) ?? 0)
     }
     return d
   }
@@ -24,7 +26,7 @@ class DateExt extends Date {
     if (timezoneAbbr === 'default') timezoneAbbr = config.defaultTimezoneAbbr
     if (timezoneAbbr !== 'UTC') {
       const timezone = timezones.find((tz) => tz.abbr === timezoneAbbr) ?? timezones.find((tz) => tz.abbr === 'UTC');
-      d = d.addHours(offsetFromTz(timezone) ?? 0)
+      d = d.addHours(offsetFromTz(timezone, d) ?? 0)
     }
     return d
   }
@@ -414,7 +416,7 @@ class DateExt extends Date {
     if (timezoneAbbr === 'default') timezoneAbbr = config.defaultTimezoneAbbr
     if (timezoneAbbr !== 'UTC') {
       const timezone = timezones.find((tz) => tz.abbr === timezoneAbbr) ?? timezones.find((tz) => tz.abbr === 'UTC');
-      dateTz = dateTz.addHours(offsetFromTz(timezone) ?? 0)
+      dateTz = dateTz.addHours(offsetFromTz(timezone, dateTz) ?? 0)
     }
     return `${dateTz.getUTCDate()}. ${dateTz.getUTCMonthEn()} ${dateTz.getUTCFullYear()}.`;
   }
@@ -434,7 +436,7 @@ class DateExt extends Date {
     if (timezoneAbbr === 'default') timezoneAbbr = config.defaultTimezoneAbbr
     if (timezoneAbbr !== 'UTC') {
       const timezone = timezones.find((tz) => tz.abbr === timezoneAbbr) ?? timezones.find((tz) => tz.abbr === 'UTC');
-      dateTz = dateTz.addHours(offsetFromTz(timezone) ?? 0)
+      dateTz = dateTz.addHours(offsetFromTz(timezone, dateTz) ?? 0)
     }
     return `${dateTz.getUTCHours().toString().padStart(2, "0")}:${dateTz.getUTCMinutes()
       .toString()
@@ -583,7 +585,7 @@ class DateExt extends Date {
       if (timezoneAbbr === 'default') timezoneAbbr = config.defaultTimezoneAbbr
       if (timezoneAbbr !== 'UTC') {
         const timezone = timezones.find((tz) => tz.abbr === timezoneAbbr) ?? timezones.find((tz) => tz.abbr === 'UTC');
-        d = d.subtractHours(offsetFromTz(timezone) ?? 0) // should never fall back to 0
+        d = d.subtractHours(offsetFromTz(timezone, d) ?? 0) // should never fall back to 0
       }
       return d;
     } catch (error) {
