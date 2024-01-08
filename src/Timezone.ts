@@ -20,7 +20,7 @@ function offsetFromTz(tz?: Timezone, d?: Date): number {
   if (!tz) return 0
   d ??= new Date()
   let dstOffset = 0
-  if(tz.isdst && isDST(d) && config.dstExperimantalEnabled) {
+  if(tz.isdst && !isDST(d) && config.dstExperimantalEnabled) {
     dstOffset--;
   }
   return tz.offset + dstOffset;
