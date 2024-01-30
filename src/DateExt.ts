@@ -74,17 +74,17 @@ class DateExt extends Date {
     const oneJan = new Date(this.getUTCFullYear(), 0, 1, 0, 0, 0, 0);
     return Math.floor(this.getUTCYearDay() / 7);
   }
-  getTzWeek(): number {
-    const oneJan = new Date(this.getTzFullYear(), 0, 1, 0, 0, 0, 0);
-    return Math.floor(this.getTzYearDay() / 7);
+  getTzWeek(timezoneAbbr: 'default' | string = 'default'): number {
+    const oneJan = new Date(this.getTzFullYear(timezoneAbbr), 0, 1, 0, 0, 0, 0);
+    return Math.floor(this.getTzYearDay(timezoneAbbr) / 7);
   }
 
   /** 28 - 31 */
   getUTCDaysInCurrentMonth(): number {
     return new DateExt(this.getUTCFullYear(), this.getUTCMonth() + 1, 0).getUTCDate();
   }
-  getTzDaysInCurrentMonth(): number {
-    return new DateExt(this.getTzFullYear(), this.getTzMonth() + 1, 0).getTzDate();
+  getTzDaysInCurrentMonth(timezoneAbbr: 'default' | string = 'default'): number {
+    return new DateExt(this.getTzFullYear(timezoneAbbr), this.getTzMonth(timezoneAbbr) + 1, 0).getTzDate(timezoneAbbr);
   }
 
   // Time setters
@@ -389,18 +389,18 @@ class DateExt extends Date {
       .toString()
       .padStart(2, "0")}-${this.getUTCDate().toString().padStart(2, "0")}`;
   }
-  getTzDateInputFormat(): string {
-    return `${this.getTzFullYear().toString().padStart(4, "0")}-${(this.getTzMonth() + 1)
+  getTzDateInputFormat(timezoneAbbr: 'default' | string = 'default'): string {
+    return `${this.getTzFullYear(timezoneAbbr).toString().padStart(4, "0")}-${(this.getTzMonth(timezoneAbbr) + 1)
       .toString()
-      .padStart(2, "0")}-${this.getTzDate().toString().padStart(2, "0")}`;
+      .padStart(2, "0")}-${this.getTzDate(timezoneAbbr).toString().padStart(2, "0")}`;
   }
   getTimeInputFormat(): string {
     return `${this.getHours().toString().padStart(2, "0")}:${this.getMinutes()
       .toString()
       .padStart(2, "0")}`;
   }
-  getTzTimeInputFormat(): string {
-    return `${this.getTzHours().toString().padStart(2, "0")}:${this.getTzMinutes()
+  getTzTimeInputFormat(timezoneAbbr: 'default' | string = 'default'): string {
+    return `${this.getTzHours(timezoneAbbr).toString().padStart(2, "0")}:${this.getTzMinutes(timezoneAbbr)
       .toString()
       .padStart(2, "0")}`;
   }
