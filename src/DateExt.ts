@@ -224,7 +224,7 @@ class DateExt extends Date {
   toLastOfMonth(): DateExt {
     let d = new DateExt(this.valueOf());
     d = d.toUTCBeforeMidnight();
-    d.setUTCDate(DateExt.daysInMonth(this.getUTCFullYear(), this.getUTCMonth()));
+    d.setUTCDate(this.getUTCDaysInCurrentMonth());
     return d;
   }
   toTzLastOfMonth(timezoneAbbr: 'default' | string = 'default'): DateExt {
@@ -366,10 +366,6 @@ class DateExt extends Date {
   }
   getMonthEn(): string {
     return monthMap[this.getMonth()];
-  }
-  static daysInMonth(year: number, month: number): number {
-    // plus jedan zato sto idemo jedan mesec unapred a 0 zato sto idemo jedan dan unazad
-    return new Date(year, month + 1, 0).getUTCDate() + 1;
   }
 
   // Nice printout
