@@ -230,7 +230,8 @@ class DateExt extends Date {
   toTzLastOfMonth(timezoneAbbr: 'default' | string = 'default'): DateExt {
     let d = new DateExt(this.valueOf());
     d = d.fromTztoUTC(timezoneAbbr)
-    d = d.toLastOfMonth();
+    d = d.toUTCBeforeMidnight(); // fix?
+    d.setUTCDate(this.getTzDaysInCurrentMonth());
     d = d.fromUTCtoTz(timezoneAbbr)
     return d;
   }
