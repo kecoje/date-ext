@@ -381,20 +381,37 @@ class DateExt extends Date {
     return `${this.simpleTzDate(timezoneAbbr)} ${this.simpleTzTime(timezoneAbbr)}`;
   }
 
-  getDateInputFormat(): string {
+  getLocalDateInputFormat(): string {
+    return `${this.getFullYear().toString().padStart(4, "0")}-${(this.getMonth() + 1)
+      .toString()
+      .padStart(2, "0")}-${this.getDate().toString().padStart(2, "0")}`;
+  }
+  getUTCDateInputFormat(): string {
     return `${this.getUTCFullYear().toString().padStart(4, "0")}-${(this.getUTCMonth() + 1)
       .toString()
       .padStart(2, "0")}-${this.getUTCDate().toString().padStart(2, "0")}`;
+  }
+  getDateInputFormat(): string {
+    return this.getUTCDateInputFormat() // old error, please deprecate
   }
   getTzDateInputFormat(timezoneAbbr: 'default' | string = 'default'): string {
     return `${this.getTzFullYear(timezoneAbbr).toString().padStart(4, "0")}-${(this.getTzMonth(timezoneAbbr) + 1)
       .toString()
       .padStart(2, "0")}-${this.getTzDate(timezoneAbbr).toString().padStart(2, "0")}`;
   }
-  getTimeInputFormat(): string {
+
+  getLocalTimeInputFormat(): string {
     return `${this.getHours().toString().padStart(2, "0")}:${this.getMinutes()
       .toString()
       .padStart(2, "0")}`;
+  }
+  getUTCTimeInputFormat(): string {
+    return `${this.getUTCHours().toString().padStart(2, "0")}:${this.getUTCMinutes()
+      .toString()
+      .padStart(2, "0")}`;
+  }
+  getTimeInputFormat(): string {
+    return this.getLocalTimeInputFormat() // old error, please deprecate
   }
   getTzTimeInputFormat(timezoneAbbr: 'default' | string = 'default'): string {
     return `${this.getTzHours(timezoneAbbr).toString().padStart(2, "0")}:${this.getTzMinutes(timezoneAbbr)
