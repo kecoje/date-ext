@@ -4,10 +4,8 @@ import { timezones } from "./timezones";
 
 export const config: {
   defaultTimezoneAbbr: string | 'UTC',
-  dstExperimantalEnabled: boolean
 } = {
   defaultTimezoneAbbr: 'UTC',
-  dstExperimantalEnabled: false,
 }
 
 class DateExt extends Date {
