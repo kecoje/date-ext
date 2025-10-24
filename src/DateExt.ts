@@ -69,11 +69,11 @@ class DateExt extends Date {
   }
   /** 0 - 53 */
   getUTCWeek(): number {
-    const oneJan = new Date(this.getUTCFullYear(), 0, 1, 0, 0, 0, 0);
+    // const oneJan = new Date(this.getUTCFullYear(), 0, 1, 0, 0, 0, 0);
     return Math.floor(this.getUTCYearDay() / 7);
   }
   getTzWeek(timezoneAbbr: 'default' | string = 'default'): number {
-    const oneJan = new Date(this.getTzFullYear(timezoneAbbr), 0, 1, 0, 0, 0, 0);
+    // const oneJan = new Date(this.getTzFullYear(timezoneAbbr), 0, 1, 0, 0, 0, 0);
     return Math.floor(this.getTzYearDay(timezoneAbbr) / 7);
   }
 
@@ -288,10 +288,26 @@ class DateExt extends Date {
   }
 
   addDays(days: number): DateExt {
-    return this.addHours(24 * days);
+    let result = new DateExt(this.valueOf());
+    result.setDate(result.getTzDate() + days);
+    return result;
+  }
+  addTzDays(timezoneAbbr: 'default' | string = 'default', days: number): DateExt {
+    let d = this.fromTztoUTC(timezoneAbbr)
+    d = d.addDays(days)
+    d = d.fromUTCtoTz(timezoneAbbr)
+    return d;
   }
   subtractDays(days: number): DateExt {
-    return this.subtractHours(24 * days);
+    let result = new DateExt(this.valueOf());
+    result.setDate(result.getTzDate() - days);
+    return result;
+  }
+  subtractTzDays(timezoneAbbr: 'default' | string = 'default', days: number): DateExt {
+    let d = this.fromTztoUTC(timezoneAbbr)
+    d = d.subtractDays(days)
+    d = d.fromUTCtoTz(timezoneAbbr)
+    return d;
   }
 
   addYears(years: number): DateExt {
